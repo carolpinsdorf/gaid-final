@@ -1,4 +1,5 @@
 import { SectAgDetails } from "./AgStyled"
+import iconCalendario from '../../assets/iconCalendario.png'
 
 type Agendamento = {
     servico: string;
@@ -38,6 +39,9 @@ export default function Detalhes({agendamento, aoCancelar, aoRemarcar} : Props){
 
     return(
         <SectAgDetails>
+            <div className="div-icon-calendario">
+                <img src={iconCalendario} alt="ícone de calendário"/>
+            </div>
             <h2>Detalhes do Agendamento</h2>
             <p>{`Serviço: ${servicoLabels[agendamento.servico] || agendamento.servico}`}</p>
             <p>{`Carro: ${agendamento.carro}`}</p>

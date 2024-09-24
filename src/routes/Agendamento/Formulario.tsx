@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FormStyled } from "./AgStyled";
+import iconAgendamento from "../../assets/iconAreaDoCliente1 copy.png"
 
 type Agendamento = {
     servico: string;
@@ -28,7 +29,6 @@ export default function Formulario({aoCriarAgendamento, agendamentoExistente}: P
     const[horario, setHorario] = useState('');
 
     const [error, setError] = useState<string | null>(null);
-
 
     useEffect(() => {
         if (agendamentoExistente) {
@@ -66,6 +66,9 @@ export default function Formulario({aoCriarAgendamento, agendamentoExistente}: P
 
     return(
         <FormStyled onSubmit={handleSubmit}>
+            <div className="div-icon-agendamento">
+                <img src={iconAgendamento} alt="Icone de agendamento" />
+            </div>
             <h2>Novo agendamento</h2>
             <select value={servico} onChange={e => setServico(e.target.value)}>
                 <option value="">Selecione o serviço</option>

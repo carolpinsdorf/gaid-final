@@ -1,8 +1,8 @@
-import { Container } from './AgStyled.ts'
+import { AnimatedLeftPanel, AnimatedRightPanel, Container } from './AgStyled.ts'
 import { useState } from 'react';
 import Formulario from './Formulario.tsx';
 import Detalhes from './Detalhes.tsx';
-
+import botaoSaida from '../../assets/iconSair copy.png'
 
 type Agendamento = {
     servico: string,
@@ -14,6 +14,7 @@ type Agendamento = {
 
 export default function Agendamento(){
 
+    const [animate, setAnimate] = useState(false);
     const [agendamento, setAgendamento] = useState<Agendamento | null>(null);
     const [remarcarAgendamento, setRemarcarAgendamento] = useState<Agendamento | null>(null);
 
@@ -23,7 +24,11 @@ export default function Agendamento(){
     };
 
     const cancelarAgendamento = ()=>{
-        setAgendamento(null)
+        setAnimate(true);
+        setTimeout(() => {
+            setAgendamento(null);
+            setAnimate(false); 
+        }, 500);
     };
 
     const remarcar= (agendamentoAtual: Agendamento) =>{
@@ -36,16 +41,28 @@ export default function Agendamento(){
     return(
         <Container>
             <div className='box1'>
-                <Formulario
-                aoCriarAgendamento={criarAgendamento}
-                agendamentoExistente={remarcarAgendamento}/>
+                <AnimatedLeftPanel animate={animate}>
+                    <Formulario
+                    aoCriarAgendamento={(ag) =>{
+                        setAgendamento(ag);
+                        setAnimate(false);
+                    }}
+                    agendamentoExistente={remarcarAgendamento}
+                />
+
+                </AnimatedLeftPanel>
                 {agendamento && (
-                    <Detalhes
-                    agendamento={agendamento}
-                    aoCancelar={cancelarAgendamento}
-                    aoRemarcar={remarcar}
-                    />
+                    <AnimatedRightPanel animate={animate}>
+                        <Detalhes
+                        agendamento={agendamento}
+                        aoCancelar={cancelarAgendamento}
+                        aoRemarcar={remarcar}
+                        />
+                    </AnimatedRightPanel>
                 )}
+            </div>
+            <div className="div-saida">
+                <img src={botaoSaida} alt="ícone de saída" />
             </div>
         </Container>
     )
