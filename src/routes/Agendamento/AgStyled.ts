@@ -223,6 +223,7 @@ export const SectAgDetails = styled.section`
     flex-direction: column;
     justify-content: center;
     animation: ${slideInFromLeft} 1s ease forwards;
+    text-align: center;
 
     .div-icon-calendario{
         display: flex;

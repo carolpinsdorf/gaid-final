@@ -70,13 +70,14 @@ export default function Formulario({aoCriarAgendamento, agendamentoExistente}: P
                 <img src={iconAgendamento} alt="Icone de agendamento" />
             </div>
             <h2>Novo agendamento</h2>
+            <input value={carro} onChange={e => setCarro(e.target.value)} placeholder="Placa do carro" />
+            {error && <p style = {{color:'red'}}>{error}</p>}
             <select value={servico} onChange={e => setServico(e.target.value)}>
                 <option value="">Selecione o serviço</option>
                 <option value="trocaOleo">Troca de Óleo</option>
                 <option value="limpezaInjetores">Limpeza dos bicos injetores</option>
                 <option value="alinBalen">Alinhamento e balanceamento</option>
             </select>
-            <input value={carro} onChange={e => setCarro(e.target.value)} placeholder="Placa do carro" />
             <select value={unidade} onChange={e => setUnidade(e.target.value)}>
                 <option value="">Selecione a unidade</option>
                 <option value="unidade1">Vila Olimpia</option>
@@ -96,7 +97,6 @@ export default function Formulario({aoCriarAgendamento, agendamentoExistente}: P
             <button type="submit">
                 {agendamentoExistente ? 'Remarcar' : 'Agendar'}
             </button>
-            {error && <p style = {{color:'red'}}>{error}</p>}
         </FormStyled>
     )
 }

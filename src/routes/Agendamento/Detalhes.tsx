@@ -42,6 +42,7 @@ export default function Detalhes({agendamento, aoCancelar, aoRemarcar} : Props){
             <div className="div-icon-calendario">
                 <img src={iconCalendario} alt="ícone de calendário"/>
             </div>
+            
             <h2>Detalhes do Agendamento</h2>
             <p>{`Serviço: ${servicoLabels[agendamento.servico] || agendamento.servico}`}</p>
             <p>{`Carro: ${agendamento.carro}`}</p>
