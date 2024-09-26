@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import styles from "./Cadastro.module.css";
 import { Header } from "../../components/molecules/header";
 import { useNavigate } from "react-router-dom";
@@ -6,31 +6,53 @@ import Input from "../../components/molecules/input";
 import logoMarca from "./../../assets/logoMarcaPorto copy.png";
 
 const RealizarCadastro = () => {
-  const stateInitialForm = {
-    nome: "",
-    email: "",
-    senha: "",
-  };
+  const nomeRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const senhaRef = useRef<HTMLInputElement>(null);
 
-  const [dataForm, setDataform] = useState(stateInitialForm);
   const navigate = useNavigate();
+
+  // Regex para validação
+  const nomeRegex = /^[a-zA-ZÀ-ÿ\s]{3,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!dataForm.nome || !dataForm.email || !dataForm.senha) {
+    const nome = nomeRef.current?.value || "";
+    const email = emailRef.current?.value || "";
+    const senha = senhaRef.current?.value || "";
+
+    if (!nome || !email || !senha) {
       alert("Todos os campos são obrigatórios");
       return;
     }
 
-    console.log("Cadastro enviado:", dataForm);
-    navigate("/area-cliente");
-  };
+    if (!nomeRegex.test(nome)) {
+      alert("O nome deve ter pelo menos 3 caracteres e conter apenas letras.");
+      return;
+    }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setDataform({ ...dataForm, [name]: value });
-    console.log(dataForm);
+    if (!emailRegex.test(email)) {
+      alert("Por favor, insira um e-mail válido.");
+      return;
+    }
+
+    if (!senhaRegex.test(senha)) {
+      alert(
+        "A senha deve ter pelo menos 8 caracteres, com uma letra maiúscula, uma letra minúscula, um número e um símbolo."
+      );
+      return;
+    }
+
+    // Salva os dados no localStorage
+    const userCadastro = { nome, email, senha };
+    localStorage.setItem("userCadastro", JSON.stringify(userCadastro));
+
+    console.log("Cadastro enviado:", userCadastro);
+
+    navigate("/area-cliente");
   };
 
   return (
@@ -51,22 +73,12 @@ const RealizarCadastro = () => {
               type="text"
               label="Nome Completo"
               name="nome"
-              onChange={handleChange}
+              ref={nomeRef}
             />
-            <Input
-              type="email"
-              label="email"
-              name="email"
-              onChange={handleChange}
-            />
+            <Input type="email" label="E-mail" name="email" ref={emailRef} />
           </div>
           <div className={styles.row2}>
-            <Input
-              type="password"
-              label="senha"
-              name="senha"
-              onChange={handleChange}
-            />
+            <Input type="password" label="Senha" name="senha" ref={senhaRef} />
           </div>
           <form onSubmit={handleSubmit}>
             <button type="submit" className={styles.submitButton}>

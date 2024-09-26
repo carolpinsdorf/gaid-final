@@ -1,3 +1,4 @@
+import React, { forwardRef } from "react";
 import styles from "./input.module.css";
 
 interface InputProps {
@@ -5,33 +6,26 @@ interface InputProps {
   placeholder?: string;
   label?: string;
   name?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Input({
-  type,
-  placeholder,
-  label,
-  onChange,
-  name,
-  ...rest
-}: InputProps) {
-  return (
-    <div className={styles.inputContainer}>
-      <label className={styles.label} htmlFor={name}>
-        {label}
-      </label>
-      <input
-        type={type}
-        className={styles.input}
-        placeholder={placeholder}
-        id={name}
-        name={name}
-        onChange={onChange}
-        {...rest}
-      />
-    </div>
-  );
-}
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ type, placeholder, label, name }, ref) => {
+    return (
+      <div className={styles.inputContainer}>
+        <label className={styles.label} htmlFor={name}>
+          {label}
+        </label>
+        <input
+          type={type}
+          className={styles.input}
+          placeholder={placeholder}
+          id={name}
+          name={name}
+          ref={ref} // passando o ref aqui
+        />
+      </div>
+    );
+  }
+);
 
 export default Input;
