@@ -1,10 +1,3 @@
-
-
-export default function AreaCliente(){
-
-    return(
-        <>
-        
-        </>
-    )
+export default function AreaCliente() {
+  return <></>;
 }

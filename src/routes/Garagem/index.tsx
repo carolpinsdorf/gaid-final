@@ -1,10 +1,3 @@
-
-
-export default function Garagem(){
-
-    return(
-        <>
-        
-        </>
-    )
+export default function Garagem() {
+  return <></>;
 }

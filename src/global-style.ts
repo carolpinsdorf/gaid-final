@@ -16,5 +16,5 @@ const GlobalStyle = createGlobalStyle`
         flex-direction: column;
     }
 
-`
-export default GlobalStyle
+`;
+export default GlobalStyle;

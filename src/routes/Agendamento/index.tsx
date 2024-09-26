@@ -1,10 +1,3 @@
-
-
-export default function Agendamento(){
-
-    return(
-        <>
-        </>
-    )
-
+export default function Agendamento() {
+  return <></>;
 }
