@@ -6,10 +6,11 @@ interface InputProps {
   placeholder?: string;
   label?: string;
   name?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Adicionado
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ type, placeholder, label, name }, ref) => {
+  ({ type, placeholder, label, name, onChange }, ref) => {
     return (
       <div className={styles.inputContainer}>
         <label className={styles.label} htmlFor={name}>
@@ -21,7 +22,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           placeholder={placeholder}
           id={name}
           name={name}
-          ref={ref} // passando o ref aqui
+          ref={ref}
+          onChange={onChange} // Passando onChange para o input
         />
       </div>
     );

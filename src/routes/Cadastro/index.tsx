@@ -12,7 +12,6 @@ const RealizarCadastro = () => {
 
   const navigate = useNavigate();
 
-  // Regex para validação
   const nomeRegex = /^[a-zA-ZÀ-ÿ\s]{3,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
@@ -46,13 +45,11 @@ const RealizarCadastro = () => {
       return;
     }
 
-    // Salva os dados no localStorage
     const userCadastro = { nome, email, senha };
     localStorage.setItem("userCadastro", JSON.stringify(userCadastro));
 
     console.log("Cadastro enviado:", userCadastro);
-
-    navigate("/area-cliente");
+    navigate("/login");
   };
 
   return (
@@ -67,7 +64,7 @@ const RealizarCadastro = () => {
             Política de Privacidade e <br /> Política de Cookies.
           </span>
         </p>
-        <div className={styles.container}>
+        <form onSubmit={handleSubmit} className={styles.container}>
           <div className={styles.row}>
             <Input
               type="text"
@@ -80,14 +77,12 @@ const RealizarCadastro = () => {
           <div className={styles.row2}>
             <Input type="password" label="Senha" name="senha" ref={senhaRef} />
           </div>
-          <form onSubmit={handleSubmit}>
-            <button type="submit" className={styles.submitButton}>
-              Cadastre-se
-            </button>
-          </form>
-          <p className={styles.foreignKey}>Tem uma conta? Conecte-se</p>
-          <img src={logoMarca} alt="" />
-        </div>
+          <button type="submit" className={styles.submitButton}>
+            Cadastre-se
+          </button>
+        </form>
+        <p className={styles.foreignKey}>Tem uma conta? Conecte-se</p>
+        <img src={logoMarca} alt="Logo Marca" />
       </div>
     </div>
   );
