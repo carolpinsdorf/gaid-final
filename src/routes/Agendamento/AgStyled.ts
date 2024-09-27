@@ -1,13 +1,5 @@
 import styled, {keyframes} from "styled-components"
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 
 const slideInFromLeft = keyframes`
   from {
@@ -48,7 +40,7 @@ export const Container = styled.div`
     flex-direction: column;
     width: 100vw;
     justify-content: space-around;
-
+    
     h1{
         text-align: center;
         padding: 3vh;
@@ -101,6 +93,14 @@ export const Container = styled.div`
         }
     }
 `
+const fadeIn = keyframes`
+    from {
+    opacity: 0;
+    }
+    to {
+    opacity: 1;
+    }
+`;
 
 export const FormStyled = styled.form`
     display: flex;
