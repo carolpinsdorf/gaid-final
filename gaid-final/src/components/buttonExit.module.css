@@ -1,0 +1,39 @@
+.buttonExit {
+  float: inline-start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 2rem;
+  right: 0;
+}
+
+.buttonExit p {
+  background-color: #232827;
+  border-radius: 20px;
+  padding-inline: 1rem;  /* Diminuído de 2rem para 1rem */
+  padding-block: 0.1rem; /* Diminuído para ajustar ao novo tamanho */
+  color: #3BA8E7;
+  font-size: 1.2rem; /* Tamanho da fonte diminuído de 2.2rem para 1.2rem */
+}
+
+
+
+@media (max-width:1100px) {
+  .buttonxExit {
+    right: 2rem;
+  }
+
+.divBotao img{
+  width: 8px;
+}   
+}
+.buttonExit {
+  cursor: pointer; /* Adiciona um cursor de mão ao passar o mouse */
+  transition: transform 0.2s ease; /* Adiciona uma transição suave ao hover */
+}
+
+
+.buttonExit:hover {
+  transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
+}
