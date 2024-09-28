@@ -1,10 +1,45 @@
 import { useState } from "react";
-import styles from "./Login.module.css";
 import logoMarca from "./../../assets/logoMarcaPorto copy.png";
 import imgbg from "./../../assets/imgSignIn copy.png";
 import { Header } from "../../components/molecules/header";
-import Input from "../../components/molecules/input";
 import { Link, useNavigate } from "react-router-dom";
+import porto from "./../Cadastro/LogoMarca.module.css";
+import {
+  FormContainer,
+  BackgroundImage,
+  Box,
+  Title,
+  ContactInfo,
+  Form,
+  Row,
+  SubmitButton,
+  ForeignKey,
+} from "./LoginStyled";
+import styled from "styled-components";
+
+const StyledInput = styled.input`
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  margin-left: 35px;
+
+  &:hover {
+    transform: scale(1.05);
+    border-color: #3ba8e7;
+  }
+
+  &:focus {
+    transform: scale(1.1);
+    border-color: #3ba8e7;
+    outline: none;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+`;
 
 const RealizarLogin = () => {
   const stateInitialForm = {
@@ -43,38 +78,37 @@ const RealizarLogin = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
+    <FormContainer>
       <Header />
-      <img className={styles.imgbg} src={imgbg} alt="Imagem de Fundo" />
-      <div className={styles.box}>
-        <h2 className={styles.title}>REALIZAR LOGIN</h2>
-        <p className={styles.contactInfo}>
+      <BackgroundImage src={imgbg} alt="Imagem de Fundo" />
+      <Box>
+        <Title>REALIZAR LOGIN</Title>
+        <ContactInfo>
           Não tem uma conta? <br />
-          <Link to="/cadastro"> Cadastre-se</Link>
-        </p>
-        <form onSubmit={handleSubmit} className={styles.container}>
-          <div className={styles.row}>
-            <Input
+          <Link to="/cadastro">Cadastre-se</Link>
+        </ContactInfo>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <StyledInput
               type="text"
-              label="Nome"
+              placeholder="Nome"
               name="nome"
               onChange={handleChange}
             />
-            <Input
+            <StyledInput
               type="password"
-              label="Senha"
+              placeholder="Senha"
               name="senha"
               onChange={handleChange}
             />
-          </div>
-          <button type="submit" className={styles.submitButton}>
-            Enviar
-          </button>
-        </form>
-        <p className={styles.foreignKey}>Esqueceu a Senha?</p>
-        <img className={styles.logoMarca} src={logoMarca} alt="Logo Marca" />
-      </div>
-    </div>
+          </Row>
+          <SubmitButton type="submit">Enviar</SubmitButton>
+        </Form>
+        <ForeignKey>Esqueceu a Senha?</ForeignKey>
+        <img className={porto.logo} src={logoMarca} alt="Logo Marca" />
+        {/* Usando a classe do CSS module */}
+      </Box>
+    </FormContainer>
   );
 };
 

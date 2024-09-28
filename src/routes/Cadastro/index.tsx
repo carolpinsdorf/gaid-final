@@ -1,20 +1,33 @@
 import React, { useRef } from "react";
-import styles from "./Cadastro.module.css";
 import { Header } from "../../components/molecules/header";
 import { useNavigate } from "react-router-dom";
-import Input from "../../components/molecules/input";
+import StyledInput from "./StyledInput"; // Importando o StyledInput
 import logoMarca from "./../../assets/logoMarcaPorto copy.png";
+import styles from "./LogoMarca.module.css";
+
+import {
+  FormContainer,
+  Box,
+  Title,
+  ContactInfo,
+  Form,
+  SubmitButton,
+  ForeignKey,
+  InputGroup, // New InputGroup component for layout
+} from "./Cadastro.Styled";
 
 const RealizarCadastro = () => {
   const nomeRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const senhaRef = useRef<HTMLInputElement>(null);
+  const cpfRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
   const nomeRegex = /^[a-zA-ZÀ-ÿ\s]{3,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,8 +35,9 @@ const RealizarCadastro = () => {
     const nome = nomeRef.current?.value || "";
     const email = emailRef.current?.value || "";
     const senha = senhaRef.current?.value || "";
+    const cpf = cpfRef.current?.value || ""; // Capturando o valor do CPF
 
-    if (!nome || !email || !senha) {
+    if (!nome || !email || !senha || !cpf) {
       alert("Todos os campos são obrigatórios");
       return;
     }
@@ -45,7 +59,12 @@ const RealizarCadastro = () => {
       return;
     }
 
-    const userCadastro = { nome, email, senha };
+    if (!cpfRegex.test(cpf)) {
+      alert("Por favor, insira um CPF válido (formato: 000.000.000-00).");
+      return;
+    }
+
+    const userCadastro = { nome, email, senha, cpf };
     localStorage.setItem("userCadastro", JSON.stringify(userCadastro));
 
     console.log("Cadastro enviado:", userCadastro);
@@ -53,38 +72,50 @@ const RealizarCadastro = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
+    <FormContainer>
       <Header />
-      <div className={styles.box}>
-        <h2 className={styles.title}>REALIZAR CADASTRO</h2>
-        <p className={styles.contactInfo}>
+      <Box>
+        <Title>REALIZAR CADASTRO</Title>
+        <ContactInfo>
           Ao se cadastrar, você <br />
-          concorda com nossos Termos, <br />{" "}
+          concorda com nossos Termos, <br />
           <span>
             Política de Privacidade e <br /> Política de Cookies.
           </span>
-        </p>
-        <form onSubmit={handleSubmit} className={styles.container}>
-          <div className={styles.row}>
-            <Input
-              type="text"
-              label="Nome Completo"
-              name="nome"
-              ref={nomeRef}
+        </ContactInfo>
+        <Form className="formContainer" onSubmit={handleSubmit}>
+          <StyledInput
+            type="text"
+            placeholder="Nome Completo"
+            name="nome"
+            ref={nomeRef}
+          />
+          <StyledInput
+            type="email"
+            placeholder="E-mail"
+            name="email"
+            ref={emailRef}
+          />
+          <InputGroup>
+            <StyledInput
+              type="password"
+              placeholder="Senha"
+              name="senha"
+              ref={senhaRef}
             />
-            <Input type="email" label="E-mail" name="email" ref={emailRef} />
-          </div>
-          <div className={styles.row2}>
-            <Input type="password" label="Senha" name="senha" ref={senhaRef} />
-          </div>
-          <button type="submit" className={styles.submitButton}>
-            Cadastre-se
-          </button>
-        </form>
-        <p className={styles.foreignKey}>Tem uma conta? Conecte-se</p>
-        <img src={logoMarca} alt="Logo Marca" />
-      </div>
-    </div>
+            <StyledInput
+              type="text"
+              placeholder="CPF"
+              name="cpf"
+              ref={cpfRef}
+            />
+          </InputGroup>
+          <SubmitButton type="submit">Cadastre-se</SubmitButton>
+        </Form>
+        <ForeignKey>Tem uma conta? Conecte-se</ForeignKey>
+        <img className={styles.logo} src={logoMarca} alt="Logo Marca" />
+      </Box>
+    </FormContainer>
   );
 };
 
