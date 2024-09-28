@@ -9,12 +9,14 @@ const RealizarCadastro = () => {
   const nomeRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const senhaRef = useRef<HTMLInputElement>(null);
+  const cpfRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
   const nomeRegex = /^[a-zA-ZÀ-ÿ\s]{3,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  const cpfRegex = /^\d{11}$/; // Regex para validar CPF (11 dígitos)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,8 +24,9 @@ const RealizarCadastro = () => {
     const nome = nomeRef.current?.value || "";
     const email = emailRef.current?.value || "";
     const senha = senhaRef.current?.value || "";
+    const cpf = cpfRef.current?.value || ""; // Obtendo o valor do CPF
 
-    if (!nome || !email || !senha) {
+    if (!nome || !email || !senha || !cpf) {
       alert("Todos os campos são obrigatórios");
       return;
     }
@@ -45,7 +48,12 @@ const RealizarCadastro = () => {
       return;
     }
 
-    const userCadastro = { nome, email, senha };
+    if (!cpfRegex.test(cpf)) {
+      alert("O CPF deve ter exatamente 11 dígitos.");
+      return;
+    }
+
+    const userCadastro = { nome, email, senha, cpf }; // Incluindo CPF no objeto
     localStorage.setItem("userCadastro", JSON.stringify(userCadastro));
 
     console.log("Cadastro enviado:", userCadastro);
@@ -59,7 +67,7 @@ const RealizarCadastro = () => {
         <h2 className={styles.title}>REALIZAR CADASTRO</h2>
         <p className={styles.contactInfo}>
           Ao se cadastrar, você <br />
-          concorda com nossos Termos, <br />{" "}
+          concorda com nossos Termos, <br />
           <span>
             Política de Privacidade e <br /> Política de Cookies.
           </span>
@@ -74,15 +82,22 @@ const RealizarCadastro = () => {
             />
             <Input type="email" label="E-mail" name="email" ref={emailRef} />
           </div>
-          <div className={styles.row2}>
+          <div className={styles.row}>
             <Input type="password" label="Senha" name="senha" ref={senhaRef} />
+            <Input type="text" label="CPF" name="cpf" ref={cpfRef} />
           </div>
           <button type="submit" className={styles.submitButton}>
             Cadastre-se
           </button>
         </form>
         <p className={styles.foreignKey}>Tem uma conta? Conecte-se</p>
-        <img src={logoMarca} alt="Logo Marca" />
+        <a
+          href="https://www.portoseguro.com.br/centros-automotivos-porto-seguro"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={logoMarca} alt="Logo Marca" />
+        </a>
       </div>
     </div>
   );

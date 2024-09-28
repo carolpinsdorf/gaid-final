@@ -7,6 +7,21 @@
   color: #000;
   position: relative;
 }
+.pulse {
+  animation: pulse-animation 0.5s forwards;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Aumenta o botão em 10% */
+  }
+  100% {
+    transform: scale(1); /* Retorna ao tamanho original */
+  }
+}
 
 .imgbg {
   position: absolute;
@@ -24,7 +39,13 @@
   margin-bottom: 1rem;
   margin-top: 150px;
 }
-
+input[type="text"]:hover,
+input[type="password"]:hover {
+  transform: scale(1.1); /* Aumenta o tamanho em 10% */
+  background-color: #ffffff; /* Troca a cor de fundo */
+  border: 2px solid #007bff; /* Adiciona uma borda azul */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transição suave */
+}
 .container {
   max-width: 600px;
   margin: auto;
@@ -60,6 +81,11 @@
 .logoMarca {
   width: 200px;
   margin: auto;
+  transition: transform 0.3s ease; /* Adiciona uma transição suave */
+}
+
+.logoMarca:hover {
+  transform: scale(1.2); /* Aumenta a logo em 20% ao passar o mouse */
 }
 
 .foreignKey {
@@ -74,18 +100,21 @@
 
 .submitButton {
   padding: 9px 20px;
-  border: 2px solid black;
-  background-color: transparent;
   color: black;
   cursor: pointer;
   font-size: 1rem;
   margin-left: 250px;
   margin-right: 250px;
+  background-color: black; /* Cor de fundo inicial */
+  color: white; /* Cor do texto */
+  border: 2px solid #007bff; /* Define a borda */
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }
 
 .submitButton:hover {
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0); /* Altera a cor de fundo ao passar o mouse */
   color: white;
+  transform: scale(1.2); /* Aumenta o botão em 20% ao passar o mouse */
 }
 
 @media (max-width: 700px) {
